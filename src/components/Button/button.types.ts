@@ -1,3 +1,4 @@
+/* 组件 API： 规定 Button 可以怎么被使用 */
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -22,6 +23,7 @@ export const ButtonType = {
 export type ButtonType =
   (typeof ButtonType)[keyof typeof ButtonType]
 
+  // Button 的 props
 export interface BaseButtonProps {
   className?: string
   disabled?: boolean

@@ -5,40 +5,32 @@ import type { FC } from 'react'
 import './styles/index.scss'
 
 import Button from './components/Button/button'
-import {
-  ButtonSize,
-  ButtonType,
-} from './components/Button/button.types.ts'
+import { ButtonType } from './components/Button/button.types.ts'
 
 const App: FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Button autoFocus>Hello</Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
-          Hello
-        </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com">
-          百度一下
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          rel="noopener noreferrer"
+        <h1 style={{ marginBottom: 24, fontWeight: 500 }}>Button 组件演示</h1>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 12,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          Learn React
-        </a>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <Button btnType={ButtonType.Primary}>Primary Button</Button>
+          <Button btnType={ButtonType.Default}>Default Button</Button>
+          <Button btnType={ButtonType.Danger}>Danger Button</Button>
+          <Button btnType={ButtonType.Link} href="#">
+            Link Button
+          </Button>
+          <Button btnType={ButtonType.Link} href="#" target="_blank">
+            Link Button("新窗口打开")
+          </Button>
+        </div>
       </header>
     </div>
   )

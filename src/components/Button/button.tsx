@@ -16,7 +16,13 @@ const Button: FC<ButtonProps> = ({
   href,
   ...restProps
 }) => {
+
   // btn, btn-lg, btn-primary
+  // ① classNames 生成 class
+  /* 
+  用户写：<Button btnType="primary" size="lg">
+  组件算出 class：btn btn-primary btn-lg
+  */
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,

@@ -1,3 +1,8 @@
+/* Bootstrap风格：颜色名 + 数字等级 */
+// 基础颜色 token (“材料库” 100%固定 约定值)
+// $white: 表示一个 SCSS变量
+// !default: 默认值,之前没有定义过这个变量，就使用这个值
+// 用户不指定定义，就用这个默认值
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -21,6 +26,8 @@ $green:   #52c41a !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
+// 语义颜色 token （AntDesign组件实际 依赖“角色”，不依赖“具体颜色名”）
+// 材料赋予“角色寓意”
 $primary:       $blue !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
@@ -42,8 +49,11 @@ $theme-colors:
   "dark":       $dark
 );
 
+// 字体系统 token (100%固定 约定值)
+// 默认字体
 $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+// 基础字体
 $font-family-base:            $font-family-sans-serif !default;
 
 // 字体大小
@@ -84,10 +94,11 @@ $body-bg:                   $white !default;
 $body-color:                $gray-900 !default;
 $body-text-align:           null !default;
 
-// Spacing
+/* 全局基础 token */
+// Spacing 间距
 $spacer: 1rem !default;
 
-// Paragraphs
+// Paragraphs 段落
 
 $paragraph-margin-bottom:   1rem !default;
 
@@ -145,7 +156,7 @@ $mark-bg:                     #fcf8e3 !default;
 
 $hr-margin-y:                 $spacer !default;
 
-// Code
+// Code 代码
 
 $code-font-size:                    $small-font-size !default;
 $code-color:                        $pink !default;
@@ -169,6 +180,7 @@ $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
 $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
 $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
 
+/* 组件级 token */
 // 按钮
 // 按钮基本属性
 $btn-font-weight:             400;

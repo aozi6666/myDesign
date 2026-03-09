@@ -1,3 +1,4 @@
+/* 把 不同浏览器的默认样式 “重置成一个统一的起点” */
 // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
 // Reboot
@@ -11,6 +12,8 @@
 // Document
 //
 // Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+// 统一 盒模型 ： width = content + padding + border
+// 浏览器默认是：width = content
 *,
 *::before,
 *::after {
@@ -27,7 +30,12 @@ body {
   margin: 0; // 1
   font-family: $font-family-base;
   font-size: $font-size-base;
-  font-weight: $font-weight-base;
+  /* 
+  配合 _variables.scss
+  $font-weight-base: $font-weight-normal !default;
+  $font-weight-normal: 400 !default;
+  */
+  font-weight: $font-weight-base;  
   line-height: $line-height-base;
   color: $body-color;
   text-align: $body-text-align;
@@ -410,6 +418,7 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button; // 2
+  appearance: button;
 
   @if $enable-pointer-cursor-for-buttons {
     &:not(:disabled) {
@@ -438,6 +447,7 @@ input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
   -webkit-appearance: textfield;
+  appearance: textfield;
 }
 
 // 1. Remove the default vertical scrollbar in IE.
@@ -510,6 +520,7 @@ progress {
 [type="search"] {
   outline-offset: -2px; // 1
   -webkit-appearance: textfield; // 2
+  appearance: textfield;
 }
 
 // Remove the inner padding in Chrome and Safari on macOS.
