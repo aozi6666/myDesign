@@ -1,4 +1,10 @@
-/* Button 真正的样式 */
+/* 
+在 **SCSS 编译阶段**被展开成很多“普通 CSS 声明”
+(Button 真正的CSS样式)
+
+浏览器最终拿到的是普通 CSS，只是这些 CSS 是“自动生成的”
+*/
+
 // 基础按钮 .btn 结构
 .btn {
     position: relative;
