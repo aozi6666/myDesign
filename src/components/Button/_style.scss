@@ -1,3 +1,6 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixin' as *;
+
 /* 
 在 **SCSS 编译阶段**被展开成很多“普通 CSS 声明”
 (Button 真正的CSS样式)

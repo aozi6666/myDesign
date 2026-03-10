@@ -1,46 +1,21 @@
-// config
-@import "variables";
+// 使用 Sass 新模块系统，集中引入全局样式和组件样式
+@use "variables";
+@use "mixin";
+@use "reboot";
+@use "animation";
 
-//layout
-@import "reboot";
+// 组件样式（直接混入全局，避免命名空间重复）
+@use "../components/Button/style" as *;
+@use "../components/Icon/style" as *;
+@use "../components/Upload/style" as *;
+@use "../components/Progress/style" as *;
 
-//mixin
-@import "mixin";
+// 下面这些组件样式暂时还没实现，等写到对应组件时再打开
+// @use "../components/Alert/style";
+// @use "../components/Menu/style";
+// @use "../components/Tabs/style";
+// @use "../components/Input/style";
+// @use "../components/AutoComplete/style";
+// @use "../components/Select/style";
+// @use "../components/Form/style";
 
-// animation
-@import "animation";
-
-// button
-@import "../components/Button/style";
-
-// 下面这些组件样式暂时还没实现，先注释掉，等写到对应组件时再打开
-
-// // alert
-// @import "../components/Alert/style";
-
-// // menu
-// @import "../components/Menu/style";
-
-// // navs
-// @import "../components/Tabs/style";
-
-// // icon
-// @import "../components/Icon/style";
-
-// // input
-// @import "../components/Input/style";
-
-// // auto-complete
-// @import "../components/AutoComplete/style";
-
-// // select
-// @import "../components/Select/style";
-
-// // upload
-// @import "../components/Upload/style";
-
-// // progress
-// @import "../components/Progress/style";
-
-// // form
-// @import "../components/Form/style";

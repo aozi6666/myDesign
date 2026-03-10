@@ -23,7 +23,7 @@ export const Upload: FC<UploadProps> = (props) => {
     onError,
     onChange,
     onRemove,
-    name,
+    name = 'file',
     headers,
     data,
     withCredentials,
@@ -179,7 +179,4 @@ export const Upload: FC<UploadProps> = (props) => {
   )
 }
 
-Upload.defaultProps = {
-  name: 'file'
-}
 export default Upload;

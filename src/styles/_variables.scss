@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:math";
+
 /* Bootstrap风格：颜色名 + 数字等级 */
 // 基础颜色 token (“材料库” 100%固定 约定值)
 // $white: 表示一个 SCSS变量
@@ -86,7 +89,7 @@ $h6-font-size:                $font-size-base !default;
 // 链接
 $link-color:                              $primary !default;
 $link-decoration:                         none !default;
-$link-hover-color:                        darken($link-color, 15%) !default;
+$link-hover-color:                        color.adjust($link-color, $lightness: -15%) !default;
 $link-hover-decoration:                   underline !default;
 
 // body
@@ -103,7 +106,7 @@ $spacer: 1rem !default;
 $paragraph-margin-bottom:   1rem !default;
 
 // 字体其他部分 heading list hr 等等
-$headings-margin-bottom:      $spacer / 2 !default;
+$headings-margin-bottom:      math.div($spacer, 2) !default;
 $headings-font-family:        null !default;
 $headings-font-style:         null !default;
 $headings-font-weight:        500 !default;
@@ -266,7 +269,7 @@ $input-border-radius-lg:                $border-radius-lg !default;
 $input-border-radius-sm:                $border-radius-sm !default;
 
 $input-focus-bg:                        $input-bg !default;
-$input-focus-border-color:              lighten($primary, 25%) !default;
+$input-focus-border-color:              color.adjust($primary, $lightness: 25%) !default;
 $input-focus-width:                     .2rem !default;
 $input-focus-color:                     $input-color !default;
 $input-focus-shadow-color:              rgba($primary, .25) !default;

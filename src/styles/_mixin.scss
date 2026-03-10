@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* @mixin： “一段可复用的样式模板”
  重复样式规则先封装起来，后面哪里要用，就 @include 一下（传入对应的props就行）
 */
@@ -13,8 +15,8 @@
   $background,
   $border,
   $color,
-  $hover-background: lighten($background, 7.5%),
-  $hover-border: lighten($border, 10%),
+  $hover-background: color.adjust($background, $lightness: 7.5%),
+  $hover-border: color.adjust($border, $lightness: 10%),
   $hover-color: $color,
 ) {
   // normal状态

@@ -1,13 +1,13 @@
 import type { FC } from 'react'
 
-// @zhangAo_换入自己写的样式文件
-// import './App.css'
 import './styles/index.scss'
 
 import Button from './components/Button/button'
 import { ButtonType } from './components/Button/button.types.ts'
 import Upload from './components/Upload'
 import type { UploadFile } from './components/Upload/upload.types'
+import Icon from './components/Icon'
+import Progress from './components/Progress'
 
 const App: FC = () => {
   const defaultUploadList: UploadFile[] = [
@@ -26,69 +26,200 @@ const App: FC = () => {
       percent: 40,
     },
   ]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2 style={{ marginBottom: 24, fontWeight: 500 }}>Button 组件演示</h2>
-        <div
+    <div
+      style={{
+        minHeight: '100vh',
+        padding: '40px 24px 80px',
+        background:
+          'radial-gradient(circle at top left, #f0f5ff 0, transparent 50%), radial-gradient(circle at bottom right, #fff1f0 0, transparent 55%)',
+        fontFamily:
+          '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 960,
+          margin: '0 auto',
+        }}
+      >
+        <header
           style={{
+            marginBottom: 32,
             display: 'flex',
-            flexWrap: 'wrap',
-            gap: 12,
-            justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
-          <Button btnType={ButtonType.Primary}>Primary Button</Button>
-          <Button btnType={ButtonType.Default}>Default Button</Button>
-          <Button btnType={ButtonType.Danger}>Danger Button</Button>
-          <Button btnType={ButtonType.Link} href="https://www.baidu.com/">
-            Link 百度
-          </Button>
-          <Button btnType={ButtonType.Link} href="https://www.baidu.com/" target="_blank">
-            Link 百度("新窗口打开")
-          </Button>
-        </div>
-
-        <h2 style={{ margin: '40px 0 16px', fontWeight: 500 }}>
-          Upload 组件演示
-        </h2>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'space-between',
             gap: 16,
-            alignItems: 'flex-start',
-            maxWidth: 480,
-            margin: '0 auto',
           }}
         >
-          <Upload
-            action="https://jsonplaceholder.typicode.com/posts"
-            defaultFileList={defaultUploadList}
-          >
-            <Button btnType={ButtonType.Primary}>点击上传</Button>
-          </Upload>
+          <div>
+            <h1 style={{ margin: 0, fontSize: 28 }}>Cream Design 组件库</h1>
+            <p style={{ margin: '8px 0 0', color: '#595959', fontSize: 14 }}>
+              一套用来练习 React + TypeScript 的轻量组件示例。
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Button btnType={ButtonType.Primary}>查看文档</Button>
+            <Button btnType={ButtonType.Default}>Git 仓库</Button>
+          </div>
+        </header>
 
-          <Upload
-            action="https://jsonplaceholder.typicode.com/posts"
-            drag
+        <main
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
+            gap: 24,
+            alignItems: 'flex-start',
+          }}
+        >
+          {/* 左侧：按钮 + 上传 */}
+          <section
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 24,
+            }}
           >
             <div
               style={{
-                padding: '20px 40px',
-                border: '1px dashed #d9d9d9',
-                borderRadius: 4,
-                textAlign: 'center',
-                color: '#595959',
-                background: '#fafafa',
+                padding: 24,
+                borderRadius: 12,
+                background: '#ffffff',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)',
               }}
             >
-              拖拽文件到此处，或点击上传
+              <h2 style={{ margin: 0, marginBottom: 16, fontSize: 18 }}>Button 组件演示</h2>
+              <p style={{ margin: '0 0 16px', color: '#8c8c8c', fontSize: 13 }}>
+                不同类型按钮和链接按钮，适合作为页面主操作、次要操作和文本链接。
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 12,
+                }}
+              >
+                <Button btnType={ButtonType.Primary}>Primary Button</Button>
+                <Button btnType={ButtonType.Default}>Default Button</Button>
+                <Button btnType={ButtonType.Danger}>Danger Button</Button>
+                <Button btnType={ButtonType.Link} href="https://www.baidu.com/">
+                  Link 百度
+                </Button>
+                <Button btnType={ButtonType.Link} href="https://www.baidu.com/" target="_blank">
+                  Link 百度("新窗口打开")
+                </Button>
+              </div>
             </div>
-          </Upload>
-        </div>
-      </header>
+
+            <div
+              style={{
+                padding: 24,
+                borderRadius: 12,
+                background: '#ffffff',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)',
+              }}
+            >
+              <h2 style={{ margin: 0, marginBottom: 16, fontSize: 18 }}>Upload 组件演示</h2>
+              <p style={{ margin: '0 0 16px', color: '#8c8c8c', fontSize: 13 }}>
+                支持点击选择、拖拽上传、上传进度显示和文件列表管理。
+              </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 16,
+                  alignItems: 'stretch',
+                }}
+              >
+                <Upload
+                  action="https://jsonplaceholder.typicode.com/posts"
+                  defaultFileList={defaultUploadList}
+                >
+                  <Button btnType={ButtonType.Primary}>点击上传</Button>
+                </Upload>
+
+                <Upload action="https://jsonplaceholder.typicode.com/posts" drag>
+                  <div
+                    style={{
+                      padding: '20px 40px',
+                      border: '1px dashed #d9d9d9',
+                      borderRadius: 4,
+                      textAlign: 'center',
+                      color: '#595959',
+                      background: '#fafafa',
+                    }}
+                  >
+                    拖拽文件到此处，或点击上传
+                  </div>
+                </Upload>
+              </div>
+            </div>
+          </section>
+
+          {/* 右侧：Icon + Progress 预览 */}
+          <section
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 24,
+            }}
+          >
+            <div
+              style={{
+                padding: 24,
+                borderRadius: 12,
+                background: '#ffffff',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)',
+              }}
+            >
+              <h2 style={{ margin: 0, marginBottom: 16, fontSize: 18 }}>Icon 组件演示</h2>
+              <p style={{ margin: '0 0 16px', color: '#8c8c8c', fontSize: 13 }}>
+                基于 Font Awesome 的图标组件，支持主题色和所有原生属性。
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 20,
+                  alignItems: 'center',
+                }}
+              >
+                <Icon icon="coffee" size="2x" />
+                <Icon icon="check-circle" size="2x" theme="success" />
+                <Icon icon="times" size="2x" theme="danger" />
+                <Icon icon="spinner" size="2x" spin theme="primary" />
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: 24,
+                borderRadius: 12,
+                background: '#ffffff',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.06)',
+              }}
+            >
+              <h2 style={{ margin: 0, marginBottom: 16, fontSize: 18 }}>Progress 组件演示</h2>
+              <p style={{ margin: '0 0 16px', color: '#8c8c8c', fontSize: 13 }}>
+                展示任务完成进度，支持不同主题颜色和高度。
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 12,
+                }}
+              >
+                <Progress percent={30} />
+                <Progress percent={65} theme="success" />
+                <Progress percent={90} theme="danger" strokeHeight={10} />
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   )
 }
