@@ -234,15 +234,34 @@ const App: FC = () => {
           <p style={{ margin: '0 0 16px', color: '#8c8c8c', fontSize: 13 }}>
             使用原生 <code>&lt;form&gt;</code> 提交到后端接口的文件上传方式。
           </p>
-          {/* 文件类型设置：encType="multipart/form-data" */}
+          {/* 
+          浏览器读取文件 
+            -> 打包成  multipart/form-data 文件类型 (文件是二进制数据)
+            -> 通过 action: URL 发送 HTTP POST 请求  
+           */}
           <form
             method="post"
             encType="multipart/form-data"
             action="https://jsonplaceholder.typicode.com/posts"
             style={{ marginTop: 8 }}
           >
-            {/* type="file" 属性 */}
+            {/* 
+              当 input 选择 "type="file"
+               -> 用户可以选择 本地文件
+               -> 得到 File 对象
+
+               name="myFile" 是浏览器接收file数据的 key
+               例如：{ myFile:  avatar.png }
+            */}
             <input type="file" name="myFile" />
+            {/* 
+            当Button 选择 type="submit"，用户点击 按钮
+               -> 浏览器 自动执行 form.submit()
+               -> 浏览器：
+                 --> 浏览器扫描 form 里的 input 找到  File 对象
+                 --> 构造 FormData 
+                 --> 发送 HTTP POST 请求
+            */}
             <button
               type="submit"
               style={{

@@ -1,3 +1,4 @@
+// Upload = Form + FormData + Ajax
 import type { ChangeEvent, FC } from 'react'
 import { useRef, useState } from 'react'
 import axios from 'axios'
@@ -118,7 +119,8 @@ export const Upload: FC<UploadProps> = (props) => {
       },
       withCredentials,
       onUploadProgress: (e) => {
-        let percentage = Math.round((e.loaded * 100) / e.total) || 0;
+        const total = e.total ?? 0
+        const percentage = total ? Math.round((e.loaded * 100) / total) : 0
         if (percentage < 100) {
           updateFileList(_file, { percent: percentage, status: 'uploading'})
           _file.status = 'uploading'

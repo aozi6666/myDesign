@@ -1,8 +1,9 @@
-import React, { FC, useState, DragEvent, ReactNode } from 'react'
+import { useState } from 'react'
+import type { DragEvent, FC, ReactNode } from 'react'
 import classNames from 'classnames'
 
 interface DraggerProps {
-  onFile: (files: FileList) => void;
+  onFile: (files: FileList) => void
   children?: ReactNode
 }
 
@@ -18,7 +19,6 @@ export const Dragger: FC<DraggerProps> = (props) => {
   const handleDrop = (e: DragEvent<HTMLElement>) => {
     e.preventDefault()
     setDragOver(false)
-    console.log('inside drag', e.dataTransfer.files)
     onFile(e.dataTransfer.files)
   }
   const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
@@ -37,4 +37,4 @@ export const Dragger: FC<DraggerProps> = (props) => {
   )
 }
 
-export default Dragger;
+export default Dragger
