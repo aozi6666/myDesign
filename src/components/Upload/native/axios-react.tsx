@@ -102,10 +102,10 @@ const AxiosReact: React.FC = () => {
   }
 
   return (
-    <div className="AxiosReact">
+    <div className="AxiosReact" style={{ marginTop: '100px', marginLeft: '100px' }}>
       <input
         type="file"
-        {/* 原生必须传，自定义不用传 name="myFile" */}
+        // {/* 原生必须传，自定义不用传 name="myFile" */}
         onChange={handleFileChange}
       />
     </div>
