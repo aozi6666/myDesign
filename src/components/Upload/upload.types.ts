@@ -3,6 +3,7 @@
 
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 
+// 改造浏览器原生 File， 原始 File 包一层 UI 上传状态信息
 export interface UploadFile {
   uid: string
   size: number

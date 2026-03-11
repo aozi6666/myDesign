@@ -35,13 +35,17 @@ export const Upload: FC<UploadProps> = (props) => {
   } = props
   // 文件输入框 ref 引用
   const fileInput = useRef<HTMLInputElement>(null)
-  // 文件列表状态
+  // 页面上 正在显示 的 上传文件列表
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
-  //  **`UploadList`** 子组件: 渲染一堆列表项 class
+
+  //  **`UploadList`** 子组件: 从 上传文件列表fileList 渲染一堆 列表项 class
+  // 上传列表状态更新器
   const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
+        // 在列表里找到同一个 uid 文件
         if (file.uid === updateFile.uid) {
+          // 更新部分字段
           return { ...file, ...updateObj }
         } else {
           return file
@@ -120,7 +124,7 @@ export const Upload: FC<UploadProps> = (props) => {
 
   // 函数： 发axios请求
   const post = (file: File) => {
-    // 创建 内部文件对象 `_file`  ==> 影响列表渲染、样式 class
+    // 改造浏览器原生File，创建 内部文件对象 `_file` （文件本体 + 上传状态）
     let _file: UploadFile = {
       uid: Date.now() + 'upload-file',
       status: 'ready',
@@ -129,6 +133,7 @@ export const Upload: FC<UploadProps> = (props) => {
       percent: 0,
       raw: file
     }
+    // 请求发送之前放进 fileList，列表先显示出来
     setFileList(prevList => {
       return [_file, ...prevList]
     })
@@ -150,26 +155,34 @@ export const Upload: FC<UploadProps> = (props) => {
         ...headers,
         'Content-Type': 'multipart/form-data'
       },
-      // 
+      // 跨域请求 凭证信息（Cookie）
+      // 需要 后端 允许跨域携带凭证： Access-Control-Allow-Credentials: true
       withCredentials,
-      // 不断回调： 上传进度 函数
+      // axios 请求配置回调
+      // 上传过程中不断触发 onUploadProgress回调： 上传进度 函数
       onUploadProgress: (e) => {
         const total = e.total ?? 0
         const percentage = total ? Math.round((e.loaded * 100) / total) : 0
-        // 
+        // 更新 fileList 中这条文件的 percent/status
         if (percentage < 100) {
+          // 更新 React state（驱动UI）：让 UploadList 子组件重新渲染
           updateFileList(_file, { percent: percentage, status: 'uploading'})
+          // 更新当前 _file 对象，保证传给回调的值是新的
           _file.status = 'uploading'
           _file.percent = percentage
+          // onProgress： 上传进度钩子
           if (onProgress) {
             onProgress(percentage, _file)
           }
         }
       }
     }).then(resp => {
+      // 成功时：更新React UI内部状态
       updateFileList(_file, {status: 'success', response: resp.data})
+      // 更新当前 _file 对象，保证传给回调的值是新的
       _file.status = 'success'
       _file.response = resp.data
+      // 通知外部 onSuccess  / onChange 钩子
       if (onSuccess) {
         onSuccess(resp.data, _file)
       }
@@ -177,9 +190,12 @@ export const Upload: FC<UploadProps> = (props) => {
         onChange(_file)
       }
     }).catch(err => {
+      // 失败时：更新React UI内部状态
       updateFileList(_file, { status: 'error', error: err})
+      // 更新当前 _file 对象，保证传给回调的值是新的
       _file.status = 'error'
       _file.error = err
+      // 
       if (onError) {
         onError(err, _file)
       }
