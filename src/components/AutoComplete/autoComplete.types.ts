@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import type { InputProps } from '../Input/input'
+import type { InputProps } from '../Input/input.types'
 
 interface DataSourceObject {
   value: string
@@ -13,11 +13,11 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect' | 'onChan
    * type DataSourceType<T = {}> = T & DataSourceObject
    */
   fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>
-  /** 点击选中建议项时触发的回调*/
+  /** 点击选中建议项时触发的回调 */
   onSelect?: (item: DataSourceType) => void
-  /** 文本框发生改变的时候触发的事件*/
+  /** 文本框发生改变的时候触发的事件 */
   onChange?: (value: string) => void
-  /**支持自定义渲染下拉项，返回 ReactElement */
+  /** 支持自定义渲染下拉项，返回 ReactElement */
   renderOption?: (item: DataSourceType) => ReactElement
 }
 

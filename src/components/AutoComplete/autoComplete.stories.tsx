@@ -1,6 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { AutoComplete, DataSourceType } from './autoComplete'
+import { AutoComplete } from './autoComplete'
+import type { DataSourceType } from './autoComplete.types'
 interface LakerPlayerProps {
   value: string;
   number: number;

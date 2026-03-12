@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
-import type { ChangeEvent, FC, KeyboardEvent } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import type { ChangeEvent, KeyboardEvent } from 'react'
+import classNames from 'classnames'
 import Input from '../Input/input'
+import Icon from '../Icon/icon'
+import Transition from '../Transition/transition'
 import useDebounce from '../../hooks/useDebounce'
 import useClickOutside from '../../hooks/useClickOutside'
 import type { AutoCompleteProps, DataSourceType } from './autoComplete.types'
-import { SuggestionList } from './suggestionList'
+export type { AutoCompleteProps, DataSourceType } from './autoComplete.types'
 
 /**
  * 输入框自动完成功能。当输入值需要自动完成时使用，支持同步和异步两种方式
@@ -15,7 +18,7 @@ import { SuggestionList } from './suggestionList'
  * import { AutoComplete } from 'vikingship'
  * ~~~
  */
-export const AutoComplete: FC<AutoCompleteProps> = (props) => {
+export const AutoComplete = (props: AutoCompleteProps) => {
   const {
     fetchSuggestions,
     onSelect,
@@ -25,39 +28,32 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     ...restProps
   } = props
 
-  const [inputValue, setInputValue] = useState(value as string)
-  const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
-  const [loading, setLoading] = useState(false)
-  const [showDropdown, setShowDropdown] = useState(false)
-  const [highlightIndex, setHighlightIndex] = useState(-1)
+  const [ inputValue, setInputValue ] = useState((value as string) || '')
+  const [ suggestions, setSugestions ] = useState<DataSourceType[]>([])
+  const [ loading, setLoading ] = useState(false)
+  const [ showDropdown, setShowDropdown] = useState(false)
+  const [ highlightIndex, setHighlightIndex] = useState(-1)
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 300)
   useClickOutside(componentRef, () => {
+    setSugestions([])
     setShowDropdown(false)
-    setSuggestions([])
   })
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
-      setSuggestions([])
+      setSugestions([])
       const results = fetchSuggestions(debouncedValue)
       if (results instanceof Promise) {
         setLoading(true)
         results.then(data => {
           setLoading(false)
-          setSuggestions(data)
-          if (data.length > 0) {
-            setShowDropdown(true)
-          }
+          setSugestions(data)
+          setShowDropdown(data.length > 0)
         })
       } else {
-        if (results.length > 0) {
-          setSuggestions(results)
-          setShowDropdown(true)
-        } else {
-          setSuggestions([])
-          setShowDropdown(false)
-        }
+        setSugestions(results)
+        setShowDropdown(results.length > 0)
       }
     } else {
       setShowDropdown(false)
@@ -92,10 +88,10 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const nextValue = e.target.value.trim()
-    setInputValue(nextValue)
+    const value = e.target.value.trim()
+    setInputValue(value)
     if (onChange) {
-      onChange(nextValue)
+      onChange(value)
     }
     triggerSearch.current = true
   }
@@ -107,6 +103,37 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     triggerSearch.current = false
   }
+  const renderTemplate = (item: DataSourceType) => {
+    return renderOption ? renderOption(item) : item.value
+  }
+  const generateDropdown = () => {
+    return (
+      <Transition
+        in={showDropdown || loading}
+        animation="zoom-in-top"
+        timeout={300}
+        onExited={() => {setSugestions([])}}
+      >
+        <ul className="viking-suggestion-list">
+          { loading &&
+            <div className="suggstions-loading-icon">
+              <Icon icon="spinner" spin/>
+            </div>
+          }
+          {suggestions.map((item, index) => {
+            const cnames = classNames('suggestion-item', {
+              'is-active': index === highlightIndex
+            })
+            return (
+              <li key={index} className={cnames} onClick={() => handleSelect(item)}>
+                {renderTemplate(item)}
+              </li>
+            )
+          })}
+        </ul>
+      </Transition>
+    )
+  }
   return (
     <div className="viking-auto-complete" ref={componentRef}>
       <Input
@@ -115,23 +142,10 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <SuggestionList
-        loading={loading}
-        show={showDropdown}
-        suggestions={suggestions}
-        highlightIndex={highlightIndex}
-        onSelect={handleSelect}
-        renderOption={renderOption}
-        onExited={() => {
-          setSuggestions([])
-          setLoading(false)
-        }}
-      />
+      {generateDropdown()}
     </div>
   )
 }
 
 export default AutoComplete;
-
-export type { AutoCompleteProps, DataSourceType }
 

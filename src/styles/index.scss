@@ -14,7 +14,7 @@
 // @use "../components/Alert/style";
 // @use "../components/Menu/style";
 // @use "../components/Tabs/style";
-// @use "../components/Input/style";
+@use "../components/Input/style" as *;
 // @use "../components/AutoComplete/style";
 // @use "../components/Select/style";
 // @use "../components/Form/style";
