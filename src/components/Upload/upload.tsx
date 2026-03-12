@@ -211,13 +211,21 @@ export const Upload: FC<UploadProps> = (props) => {
     <div 
       className="viking-upload-component"
     >
+      {/* {children}: 外部传进来的 UI(文本、组件、按钮) */}
       <div className="viking-upload-input"
         style={{display: 'inline-block'}}
         onClick={handleClick}>
+        {children}
+        {/* 如果 drag = true，使用 Dragger 组件(拖拽模式) */}
           {drag ? 
+            // 传给 Dragger子组件回调函数 onFile
+            // 当用户拖拽文件，Dragger 的onDrop状态触发 onFile(files)
             <Dragger onFile={(files) => {uploadFiles(files, true)}}>
+              {/* 把 children 传给 Dragger组件 使用 */}
               {children}
             </Dragger>:
+
+             // 如果 drag = false, 直接渲染 children(普通模式)
             children
           }
         <input
