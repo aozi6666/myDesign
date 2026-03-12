@@ -13,13 +13,22 @@ import type {
 as const: 把 ButtonSize对象的值 变成不可修改的 字面量类型
   - 如果没有 as const: Large: string
   - 如果有 as const: Large: "lg"
+
+不写 as const: Large: 'lg' 会被 TS 自动推导为 string 类型
 */
 export const ButtonSize = {
   Large: 'lg',
   Small: 'sm',
 } as const
 
-// 最终生成的类型: type ButtonSize = "lg" | "sm"
+// typeof: 取出某个 变量/对象 的“类型”
+// keyof： 拿到一个对象类型的“所有键名-属性名 keys”
+//         -> 变成联合类型 "Large" | "Small"
+
+/* 
+  (某个类型)[某些键]：从这个类型里，取这些 key 对应的 value 类型
+  -> 最终变成 type ButtonSize = "lg" | "sm"
+*/
 export type ButtonSize =
   (typeof ButtonSize)[keyof typeof ButtonSize]
 
