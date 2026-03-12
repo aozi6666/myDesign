@@ -1,7 +1,7 @@
 import React from 'react'
-import { ComponentMeta } from '@storybook/react'
+import type { ComponentMeta } from '@storybook/react-vite'
 import Icon from './icon'
-import Button from '../Button'
+import Button from '../Button/button'
 
 export default { 
   title: '第七章：Icon 组件',
