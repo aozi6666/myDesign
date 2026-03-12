@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ComponentStory, ComponentMeta } from '@storybook/react-vite'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Input } from './input'
 export default {
   title: '第九章：Input',

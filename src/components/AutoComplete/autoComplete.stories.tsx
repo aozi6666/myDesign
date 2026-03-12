@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ComponentStory, ComponentMeta } from '@storybook/react-vite'
+import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { AutoComplete } from './autoComplete'
 import type { DataSourceType } from './autoComplete.types'
 interface LakerPlayerProps {

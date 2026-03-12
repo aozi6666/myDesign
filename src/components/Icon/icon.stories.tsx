@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ComponentMeta } from '@storybook/react-vite'
+import type { ComponentMeta } from '@storybook/react'
 import Icon from './icon'
 import Button from '../Button/button'
 
