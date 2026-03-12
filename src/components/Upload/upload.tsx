@@ -35,7 +35,7 @@ export const Upload: FC<UploadProps> = (props) => {
   } = props
   // 文件输入框 ref 引用
   const fileInput = useRef<HTMLInputElement>(null)
-  // 页面上 正在显示 的 上传文件列表
+  // （子组件）页面上 正在显示 的 上传文件列表
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
 
   //  **`UploadList`** 子组件: 从 上传文件列表fileList 渲染一堆 列表项 class
@@ -78,6 +78,8 @@ export const Upload: FC<UploadProps> = (props) => {
       fileInput.current.value = ''
     }
   }
+
+  // 传递给 UploadList 子组件的 回调函数
   const handleRemove = (file: UploadFile) => {
     setFileList((prevList) => {
       return prevList.filter(item => item.uid !== file.uid)
@@ -238,7 +240,8 @@ export const Upload: FC<UploadProps> = (props) => {
           multiple={multiple}
         />
       </div>
-
+      
+      {/* 子组件：展示文件列表 */}
       <UploadList 
         fileList={fileList}
         onRemove={handleRemove}
