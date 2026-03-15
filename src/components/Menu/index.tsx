@@ -26,4 +26,4 @@ const TransMenu = Menu as IMenuComponent
 TransMenu.Item = MenuItem
 TransMenu.SubMenu = SubMenu
 
-export default TransMenu; 0
+export default TransMenu; 
